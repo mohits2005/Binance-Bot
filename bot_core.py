@@ -15,7 +15,12 @@ if not logger.handlers:
     ch_formatter = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
     ch.setFormatter(ch_formatter)
     logger.addHandler(ch)
-logger.setLevel(logging.DEBUG)
+    
+    fh = logging.FileHandler("bot.log")  # logs saved in project root
+    fh.setLevel(logging.DEBUG)
+    fh_formatter = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
+    fh.setFormatter(fh_formatter)
+    logger.addHandler(fh)
 
 DEFAULT_BASE_URL = "https://testnet.binancefuture.com"
 ORDER_PATH = "/fapi/v1/order"
@@ -141,4 +146,5 @@ class BasicBot:
             params["origClientId"] = origClientId
         return self._signed_request("DELETE", ORDER_PATH, params)
     
+
 
